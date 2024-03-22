@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO</title>
+    <style>
+        body{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+        td,thead, th{
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        .title{
+            margin: 0;
+        }
+        table{
+            margin: 10px;
+        }
+
+        input{
+            margin: 5px;
+        }
+
+    </style>
 </head>
+
 <body>
-    
+    <h1 class="title">TODO List</h1>
+    <section class="add-new-item">
+        <input type="text" name="add_new_item" id="add_item">
+        <button type="submit">ADD</button>
+    </section>
+    <section class="search_item">
+        <input type="text" name="search_exist_item" id="search_item" placeholder="Search for Item">
+    </section>
+    <section class="table_of_content">
+        <table style="border-collapse: collapse; ">
+            <thead style="background-color: #aaa;">
+                <th>ID</th>
+                <th>Task Description</th>
+                <th>UserID</th>
+                <th>Status</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="5">no content</td>
+                </tr>
+                <tr>
+                    <td>no</td>
+                    <td>no</td>
+                    <td>no</td>
+                    <td>no</td>
+                    <td>no</td>
+                </tr>
+            <tfoot style="background-color: #aaa;">
+                <td colspan="5">
+                    <label for="total_tasks">Total Tasks : </label>
+                    <span id="total_task_no">0</span>
+                </td>
+            </tfoot>
+            </tbody>
+        </table>
+    </section>
 </body>
+
 </html>
