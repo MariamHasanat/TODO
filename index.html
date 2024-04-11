@@ -6,22 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO</title>
     <style>
-        body{
+        body {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             width: 100vw;
             height: 100vh;
         }
-        td,thead, th{
+
+        td,
+        thead,
+        th {
             border: 1px solid black;
             padding: 5px;
             text-align: center;
         }
-        section, h1{
+
+        section,
+        h1 {
             margin: 10px;
         }
-
     </style>
 </head>
 
@@ -43,16 +47,22 @@
                 <th>Status</th>
                 <th>Action</th>
             </thead>
-            <tbody>
+            <tbody id="table_body">
                 <tr>
                     <td colspan="5">no content</td>
                 </tr>
                 <tr>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
-                    <td>no</td>
+                    <td class="ID">0</td>
+                    <td class="Description">Read 5 pages from my fav book</td>
+                    <td class="UserID">2</td>
+                    <td class="Status">pending</td>
+                    <td class="Action">
+                        <button>edit</button>
+                        <button style="background-color: white; border: 0; margin: 0; padding: 0;">
+                            done
+                        </button>
+                        <button>delete</button>
+                    </td>
                 </tr>
             <tfoot style="background-color: #aaa;">
                 <td colspan="5">
@@ -63,6 +73,42 @@
             </tbody>
         </table>
     </section>
+
+    <script>
+
+        let elements;
+        const getELements = async () => {
+            let response = await fetch('https://dummyjson.com/todos');
+            let JsonData = await response.json();
+            elements = JsonData.todos;
+        }
+
+        document.body.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await getELements();
+            const tr = elements.map((value, key) => { 
+                return `
+            <tr key=${key}>
+                <td class="ID">${value.id}</td>
+                <td class="Description">${value.todo}</td>
+                <td class="UserID">${value.userId}</td>
+                <td class="Status">${value.completed}</td>
+                <td class="Action">
+                        <button>edit</button>
+                        <button style="background-color: white; border: 0; margin: 0; padding: 0;">
+                            done
+                        </button>
+                        <button>delete</button>
+                    </td>
+            </tr>
+        `;
+            });
+
+            document.getElementById('table_body').innerHTML ='';//clear the table content  
+            document.getElementById('table_body').innerHTML = tr.join(''); 
+        });
+
+    </script>
 </body>
 
 </html>
