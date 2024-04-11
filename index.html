@@ -48,21 +48,8 @@
                 <th>Action</th>
             </thead>
             <tbody id="table_body">
-                <tr>
+                <tr aria-rowspan="5">
                     <td colspan="5">no content</td>
-                </tr>
-                <tr>
-                    <td class="ID">0</td>
-                    <td class="Description">Read 5 pages from my fav book</td>
-                    <td class="UserID">2</td>
-                    <td class="Status">pending</td>
-                    <td class="Action">
-                        <button>edit</button>
-                        <button style="background-color: white; border: 0; margin: 0; padding: 0;">
-                            done
-                        </button>
-                        <button>delete</button>
-                    </td>
                 </tr>
             <tfoot style="background-color: #aaa;">
                 <td colspan="5">
@@ -77,16 +64,17 @@
     <script>
 
         let elements;
+        let limit;
+        let loading = true;
         const getELements = async () => {
             let response = await fetch('https://dummyjson.com/todos');
             let JsonData = await response.json();
             elements = JsonData.todos;
+            limit = JsonData.limit;
         }
 
-        document.body.addEventListener('click', async (e) => {
-            e.preventDefault();
-            await getELements();
-            const tr = elements.map((value, key) => { 
+        const renderDataFunction = async () => {
+            const tr = elements.map((value, key) => {
                 return `
             <tr key=${key}>
                 <td class="ID">${value.id}</td>
@@ -104,10 +92,18 @@
         `;
             });
 
-            document.getElementById('table_body').innerHTML ='';//clear the table content  
-            document.getElementById('table_body').innerHTML = tr.join(''); 
-        });
+            document.getElementById('table_body').innerHTML = '';//clear the table content  
+            document.getElementById('table_body').innerHTML = tr.join('');
+            document.getElementById('total_task_no').innerHTML = limit;
 
+        }
+
+        window.onload = async function () {
+            await getELements();
+            await setTimeout(() => {
+             renderDataFunction();
+            }, 1000);
+        }
     </script>
 </body>
 
