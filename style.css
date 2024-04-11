@@ -1,0 +1,20 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+td,
+thead,
+th {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+section,
+h1 {
+    margin: 10px;
+}

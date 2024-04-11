@@ -4,36 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>TODO</title>
-    <style>
-        body {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        td,
-        thead,
-        th {
-            border: 1px solid black;
-            padding: 5px;
-            text-align: center;
-        }
-
-        section,
-        h1 {
-            margin: 10px;
-        }
-    </style>
 </head>
 
 <body>
     <h1 class="title">TODO List</h1>
     <section class="add-new-item">
-        <input type="text" name="add_new_item" id="add_item">
-        <button type="submit">ADD</button>
+        <form action="submit" method="post">
+            <input type="text" name="add_new_item" id="add_item" placeholder="add new task">
+            <button type="submit">ADD</button>
+        </form>
     </section>
     <section class="search_item">
         <input type="text" name="search_exist_item" id="search_item" placeholder="Search for Item">
@@ -61,49 +42,7 @@
         </table>
     </section>
 
-    <script>
-
-        let elements;
-        let limit;
-        let loading = true;
-        const getELements = async () => {
-            let response = await fetch('https://dummyjson.com/todos');
-            let JsonData = await response.json();
-            elements = JsonData.todos;
-            limit = JsonData.limit;
-        }
-
-        const renderDataFunction = async () => {
-            const tr = elements.map((value, key) => {
-                return `
-            <tr key=${key}>
-                <td class="ID">${value.id}</td>
-                <td class="Description">${value.todo}</td>
-                <td class="UserID">${value.userId}</td>
-                <td class="Status">${value.completed}</td>
-                <td class="Action">
-                        <button>edit</button>
-                        <button style="background-color: white; border: 0; margin: 0; padding: 0;">
-                            done
-                        </button>
-                        <button>delete</button>
-                    </td>
-            </tr>
-        `;
-            });
-
-            document.getElementById('table_body').innerHTML = '';//clear the table content  
-            document.getElementById('table_body').innerHTML = tr.join('');
-            document.getElementById('total_task_no').innerHTML = limit;
-
-        }
-
-        window.onload = async function () {
-            await getELements();
-            await setTimeout(() => {
-             renderDataFunction();
-            }, 1000);
-        }
+    <script src="script.js">
     </script>
 </body>
 
