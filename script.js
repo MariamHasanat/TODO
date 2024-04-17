@@ -2,18 +2,20 @@ let elements;
 let limit;
 let loading = true;
 const getELements = async () => {
-    let response = await fetch('https://dummyjson.com/todos');
+    let response = await fetch('https://jsonplaceholder.typicode.com/todos');
     let JsonData = await response.json();
-    elements = JsonData.todos;
-    limit = JsonData.limit;
+    console.log(JsonData);
+    elements = JsonData;//.todos;
+    limit = JsonData.length;
+    console.log(limit);
 }
 
 const renderDataFunction = async () => {
-    const tr = elements.map((value, key) => {
+    const tr = elements?.map((value, key) => {
         return `
     <tr key=${key}>
         <td class="ID">${value.id}</td>
-        <td class="Description">${value.todo}</td>
+        <td class="Description">${value.title}</td>
         <td class="UserID">${value.userId}</td>
         <td class="Status">${value.completed}</td>
         <td class="Action">
@@ -36,6 +38,6 @@ const renderDataFunction = async () => {
 window.onload = async function () {
     await getELements();
     await setTimeout(() => {
-        renderDataFunction();
+    renderDataFunction();
     }, 1000);
 }
