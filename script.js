@@ -1,25 +1,23 @@
 // declare functions
 
 const getELements = async () => {
-    let response = await fetch('https://jsonplaceholder.typicode.com/todos').catch((err) => {
+    let response = await fetch('https://dummyjson.com/todos').catch((err) => {
         console.log(err);
     })
     let JsonData = await response.json();
-    const elements = JsonData;
-    const limit = JsonData.length;
+    console.log(JsonData);
+    const elements = JsonData.todos;
+    const limit = JsonData.limit;
     return { elements, limit }
 }
 
-// const mariam = JSON.parse(localStorage.getItem('data'));
-// console.log(mariam.elements);
-// console.log(typeof(Array(JSON.parse(mariam))), mariam.length);
-
 const postELements = async (e) => {
     let { elements, limit } = JSON.parse(localStorage.getItem('data'));
+    let updatedID = elements.length + 1
     elements.push({
         completed: false,
-        id: elements.length+1,
-        title: titleOfTask,
+        id: updatedID,
+        todo: titleOfTask,
         userId: Number(userID),
     });
     limit++;
@@ -28,24 +26,20 @@ const postELements = async (e) => {
     localStorage.setItem('data', JSON.stringify(data));
     renderDataFunction(data);
 
-    // let response = await fetch('https://jsonplaceholder.typicode.com/todos', {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application / json" },
-    //     body: JSON.stringify(data),
-    // }).then((res) => console.log(res.status + "mariam thank you"))
-    //     .catch((error) => {
-    //         console.log(error);
-    //     })
-    //     ;
-    // console.log(response);
-
-    // let JsonData = new Response;
-    // JsonData = await response.status;
-
-    // console.log(JsonData);
-    // const elements = JsonData;
-    // const limit = JsonData.length;
-    // return { elements, limit }
+    await fetch('https://dummyjson.com/todos/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            todo: titleOfTask,
+            completed: false,
+            userId: Number(userID),
+            id: updatedID,
+        })
+    }).then((res) => res.json())
+        .then((res) => console.log(res + "mariam thank you"))
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 const renderDataFunction = async (data) => {
@@ -55,7 +49,7 @@ const renderDataFunction = async (data) => {
         return `
     <tr key=${key}>
         <td class="ID">${value.id}</td>
-        <td class="Description">${value.title}</td>
+        <td class="Description">${value.todo}</td>
         <td class="UserID">${value.userId}</td>
         <td class="Status">${value.completed}</td>
         <td class="Action">
@@ -108,12 +102,10 @@ const addUserID = document.getElementById('addUserId');
 let userID;
 addUserID.addEventListener('change', (e) => {
     userID = e.target.value;
-    // addUserID.innerText = userID;
 })
 //add a title
 const addTitle = document.getElementById('addTitle');
 let titleOfTask;
 addTitle.addEventListener('change', (e) => {
     titleOfTask = e.target.value;
-    // addTitle.innerText = titleOfTask;
 })
