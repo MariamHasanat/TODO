@@ -36,7 +36,6 @@ const postELements = async (e) => {
             id: updatedID,
         })
     }).then((res) => res.json())
-        .then((res) => console.log(res + "mariam thank you"))
         .catch((error) => {
             console.log(error);
         });
