@@ -1,16 +1,14 @@
-let elements;
-let limit;
-let loading = true;
 const getELements = async () => {
     let response = await fetch('https://jsonplaceholder.typicode.com/todos');
     let JsonData = await response.json();
-    console.log(JsonData);
-    elements = JsonData;//.todos;
-    limit = JsonData.length;
-    console.log(limit);
+    const elements = JsonData;
+    const limit = JsonData.length;
+    return {elements, limit}
 }
 
-const renderDataFunction = async () => {
+const renderDataFunction = async (data) => {
+    const elements = data.elements;
+    const limit = data.limit;
     const tr = elements?.map((value, key) => {
         return `
     <tr key=${key}>
@@ -30,14 +28,14 @@ const renderDataFunction = async () => {
     });
 
     document.getElementById('table_body').innerHTML = '';//clear the table content  
-    document.getElementById('table_body').innerHTML = tr.join('');
+    document.getElementById('table_body').innerHTML = tr.join('');//remove commas from the array
     document.getElementById('total_task_no').innerHTML = limit;
 
 }
 
 window.onload = async function () {
-    await getELements();
-    await setTimeout(() => {
-    renderDataFunction();
-    }, 1000);
+   const data = await getELements();
+    setTimeout(() => {
+    renderDataFunction(data);
+    }, 500);
 }
