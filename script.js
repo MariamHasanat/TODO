@@ -10,6 +10,44 @@ const getELements = async () => {
     return { elements, limit }
 }
 
+// const mariam = JSON.parse(localStorage.getItem('data'));
+// console.log(mariam.elements);
+// console.log(typeof(Array(JSON.parse(mariam))), mariam.length);
+
+const postELements = async (e) => {
+    let { elements, limit } = JSON.parse(localStorage.getItem('data'));
+    elements.push({
+        completed: false,
+        id: elements.length+1,
+        title: titleOfTask,
+        userId: Number(userID),
+    });
+    limit++;
+    const data = { elements, limit }
+
+    localStorage.setItem('data', JSON.stringify(data));
+    renderDataFunction(data);
+
+    // let response = await fetch('https://jsonplaceholder.typicode.com/todos', {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application / json" },
+    //     body: JSON.stringify(data),
+    // }).then((res) => console.log(res.status + "mariam thank you"))
+    //     .catch((error) => {
+    //         console.log(error);
+    //     })
+    //     ;
+    // console.log(response);
+
+    // let JsonData = new Response;
+    // JsonData = await response.status;
+
+    // console.log(JsonData);
+    // const elements = JsonData;
+    // const limit = JsonData.length;
+    // return { elements, limit }
+}
+
 const renderDataFunction = async (data) => {
     const elements = data.elements;
     const limit = data.limit;
@@ -56,5 +94,26 @@ window.onload = async function () {
         getDataFromServer()
         :
         getDataFromLocalStorage()
-
 }
+
+const submitButton = document.getElementById("submitButton");
+
+submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    postELements(e);
+    document.getElementById('addUserId').value = '';
+    document.getElementById('addTitle').value = '';
+});
+const addUserID = document.getElementById('addUserId');
+let userID;
+addUserID.addEventListener('change', (e) => {
+    userID = e.target.value;
+    // addUserID.innerText = userID;
+})
+//add a title
+const addTitle = document.getElementById('addTitle');
+let titleOfTask;
+addTitle.addEventListener('change', (e) => {
+    titleOfTask = e.target.value;
+    // addTitle.innerText = titleOfTask;
+})

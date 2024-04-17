@@ -12,8 +12,15 @@
     <h1 class="title">TODO List</h1>
     <section class="add-new-item">
         <form action="submit" method="post">
-            <input type="text" name="add_new_item" id="add_item" placeholder="add new task">
-            <button type="submit">ADD</button>
+            <!--  -->
+            <label for="addDescription"> Enter new task
+                <input type="text" name="title" id="addTitle" value="">
+            </label>
+            <label for="UserID"> UserID
+                <input type="text" name="userId" id="addUserId" value="">
+            </label>
+
+            <button id="submitButton" type="submit">ADD</button>
         </form>
     </section>
     <section class="search_item">
