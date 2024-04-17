@@ -1,9 +1,13 @@
+// declare functions
+
 const getELements = async () => {
-    let response = await fetch('https://jsonplaceholder.typicode.com/todos');
+    let response = await fetch('https://jsonplaceholder.typicode.com/todos').catch((err) => {
+        console.log(err);
+    })
     let JsonData = await response.json();
     const elements = JsonData;
     const limit = JsonData.length;
-    return {elements, limit}
+    return { elements, limit }
 }
 
 const renderDataFunction = async (data) => {
@@ -32,10 +36,25 @@ const renderDataFunction = async (data) => {
     document.getElementById('total_task_no').innerHTML = limit;
 
 }
+const getDataFromServer = async () => {
+    const data = await getELements();
+    localStorage.setItem("data", JSON.stringify(data));
+    await renderDataFunction(data);
+}
+
+const getDataFromLocalStorage = () => {
+    const dataArray = JSON.parse(localStorage.getItem("data"));
+    renderDataFunction(dataArray);
+}
+//start the program 
+
+let dataIsFoundInStorage = localStorage.key("data");
 
 window.onload = async function () {
-   const data = await getELements();
-    setTimeout(() => {
-    renderDataFunction(data);
-    }, 500);
+    dataIsFoundInStorage === null
+        ?
+        getDataFromServer()
+        :
+        getDataFromLocalStorage()
+
 }
