@@ -24,7 +24,7 @@
         </form>
     </section>
     <section class="search_item">
-        <input type="text" name="search_exist_item" id="search_item" placeholder="Search for Item">
+        <input type="search" name="search_exist_item" id="search_item" placeholder="Search for Item">
     </section>
     <section class="table_of_content">
         <table style="border-collapse: collapse; ">
@@ -48,6 +48,29 @@
             </tbody>
         </table>
     </section>
+
+    <div style="border: 1px solid black; width: 30vw; padding: 2rem; position: relative;">
+        <button style="position: absolute; right: 15px; top: 15px;">&times;</button>
+        <h3> Are you sure?</h3>
+        <p>Do you really want to delete these records? This process cannot be undone.</p>
+        <span>
+            <button>Cancel</button>
+            <button>Delete</button>
+        </span>
+    </div>
+
+    <tr key=${key}>
+        <td class="ID"><input type="text"></td>
+        <td class="Description"><input type="text"></td>
+        <td class="UserID"><input type="number" name="" id=""></td>
+        <td class="Status">${actual vale}</td>
+        <td class="Action">
+                <button style="background-color: green; border: 0; margin: 0; padding: 0;">save</button>
+                <button style="background-color: red; border: 0; margin: 0; padding: 0;">
+                    cancel
+                </button>
+            </td>
+    </tr>
 
     <script src="script.js">
     </script>
