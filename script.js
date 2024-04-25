@@ -59,18 +59,19 @@ const renderDataFunction = async (data) => {
         return `
     <tr key=${key}>
         <td class="ID">${value.id}</td>
-        <td class="Description">${value.todo}</td>
-        <td class="UserID">${value.userId}</td>
-        <td class="Status">${value.completed}</td>
+        <td class="Description" contenteditable='true'>${value.todo}</td>
+        <td class="UserID" contenteditable='true'>${value.userId}</td>
+        <td class="Status" contenteditable='true'>${value.completed}</td>
         <td class="Action">
-                <button>edit</button>
+                <button onclick='(e)=>{
+                    
+                }'>edit</button>
                 <button style="background-color: white; border: 0; margin: 0; padding: 0;">
                     done
                 </button>
                 <button onclick='handleDeleteClick(event,${key})'>delete</button>
             </td>
-    </tr>
-`;
+    `;
     });
     document.getElementById('table_body').innerHTML = '';//clear the table content  
     document.getElementById('table_body').innerHTML = tr.join('');//remove commas from the array
